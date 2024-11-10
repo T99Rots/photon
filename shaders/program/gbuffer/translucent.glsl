@@ -110,7 +110,7 @@ void main() {
 #if defined PROGRAM_GBUFFERS_WATER
 	tint.a = 1.0;
 
-	if (material_mask == 62) {
+	if (91 <= material_mask && material_mask <= 106) {
 		// Nether portal
 		position_tangent = (position_scene - gbufferModelViewInverse[3].xyz) * tbn;
 
@@ -429,10 +429,9 @@ vec2 get_local_coord_from_uv(vec2 uv) {
 	return (uv - atlas_tile_offset) * rcp(atlas_tile_scale);
 }
 
-vec4 draw_nether_portal() {
+vec4 draw_nether_portal(float portal_brightness) {
 	const int step_count          = 20;
 	const float parallax_depth    = 0.2;
-	const float portal_brightness = 4.0;
 	const float density_threshold = 0.6;
 	const float depth_step        = rcp(float(step_count));
 
@@ -463,7 +462,7 @@ vec4 draw_nether_portal() {
 }
 
 #else
-vec4 draw_nether_portal() { return vec4(0.0); }
+vec4 draw_nether_portal(float portal_brightness) { return vec4(0.0); }
 #endif
 
 void main() {
@@ -504,7 +503,7 @@ void main() {
 	vec3 normal_tangent = vec3(0.0, 0.0, 1.0);
 
 	bool is_water         = material_mask == 1;
-	bool is_nether_portal = material_mask == 62;
+	bool is_nether_portal = 91 <= material_mask && material_mask <= 106;
 
 	vec2 adjusted_light_levels = light_levels;
 
@@ -536,13 +535,81 @@ void main() {
 
 #ifdef FANCY_NETHER_PORTAL
 		if (is_nether_portal) {
-			fragment_color = draw_nether_portal();
+      switch (material_mask) {
+        case 91u:
+          // Red portal
+          fragment_color = draw_nether_portal(7.0);
+          break;
+        case 92u:
+          // Orange portal
+          fragment_color = draw_nether_portal(2.4);
+          break;
+        case 93u:
+          // Yellow portal
+          fragment_color = draw_nether_portal(1.55);
+          break;
+        case 94u:
+          // Brown portal
+          fragment_color = draw_nether_portal(5.0);
+          break;
+        case 95u:
+          // Green portal
+          fragment_color = draw_nether_portal(8.0);
+          break;
+        case 96u:
+          // Lime portal
+          fragment_color = draw_nether_portal(2.5);
+          break;
+        case 97u:
+          // Blue portal
+          fragment_color = draw_nether_portal(3.3);
+          break;
+        case 98u:
+          // Light blue portal
+          fragment_color = draw_nether_portal(1.6);
+          break;
+        case 99u:
+          // Cyan portal
+          fragment_color = draw_nether_portal(5.0);
+          break;
+        case 100u:
+          // Purple portal nether portal
+          fragment_color = draw_nether_portal(4.0);
+          break;
+        case 101u:
+          // Magenta portal
+          fragment_color = draw_nether_portal(4.0);
+          break;
+        case 102u:
+          // Pink portal
+          fragment_color = draw_nether_portal(1.6);
+          break;
+        case 103u:
+          // Black portal
+          fragment_color = draw_nether_portal(10.0);
+          break;
+        case 104u:
+          // White portal
+          fragment_color = draw_nether_portal(1.75);
+          break;
+        case 105u:
+          // Gray portal
+          fragment_color = draw_nether_portal(5.0);
+          break;
+        case 106u:
+          // Light gray portal
+          fragment_color = draw_nether_portal(2.4);
+          break;
+        default:
+          // Handle other cases if necessary
+          break;
+      }
 		}
 #endif
 
 #if defined PROGRAM_GBUFFERS_ENTITIES_TRANSLUCENT
 		// Lightning (old versions)
-		if (material_mask == 102) fragment_color = vec4(1.0);
+		if (material_mask == 127) fragment_color = vec4(1.0);
 
 		// Hit mob tint
 		fragment_color.rgb = mix(fragment_color.rgb, entityColor.rgb, entityColor.a);

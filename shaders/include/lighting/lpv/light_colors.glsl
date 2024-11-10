@@ -1,7 +1,7 @@
 #if !defined INCLUDE_LIGHTING_LPV_LIGHT_COLORS
 #define INCLUDE_LIGHTING_LPV_LIGHT_COLORS
 
-const vec3[32] light_color = vec3[32](
+const vec3[75] light_color = vec3[75](
 	vec3(1.00, 1.00, 1.00) * 12.0, // Strong white light
 	vec3(1.00, 1.00, 1.00) *  6.0, // Medium white light
 	vec3(1.00, 1.00, 1.00) *  1.0, // Weak white light
@@ -29,11 +29,54 @@ const vec3[32] light_color = vec3[32](
 	vec3(0.75, 0.44, 1.00) *  4.0, // Calibrated sculk sensor
 	vec3(0.75, 1.00, 0.83) *  6.0, // Active sculk sensor
 	vec3(1.00, 0.18, 0.10) *  3.3, // Redstone block
-	vec3(0.0), // Unused
-	vec3(0.0), // Unused
-	vec3(0.0), // Unused
-	vec3(0.60, 0.10, 1.00) * 12.0, // Nether portal
-	vec3(0.0)  // End portal
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused 
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // Unused
+	vec3(0.00, 0.00, 0.00), // End portal
+  vec3(1.0, 0.1, 0.1) * 12.0, // Red portal
+  vec3(1.0, 0.5, 0.1) * 12.0, // Orange portal
+  vec3(1.0, 1.0, 0.1) * 12.0, // Yellow portal
+  vec3(0.7, 0.7, 0.0) * 12.0, // Brown portal
+  vec3(0.1, 1.0, 0.1) * 12.0, // Green portal
+  vec3(0.5, 1.0, 0.5) * 12.0, // Lime portal
+  vec3(0.1, 0.1, 1.0) * 12.0, // Blue portal
+  vec3(0.5, 0.5, 1.0) * 12.0, // Light blue portal
+  vec3(0.1, 1.0, 1.0) * 12.0, // Cyan portal
+  vec3(0.7, 0.1, 1.0) * 12.0, // Purple portal
+  vec3(1.0, 0.1, 1.0) * 12.0, // Magenta portal
+  vec3(1.0, 0.5, 1.0) * 12.0, // Pink portal
+  vec3(0.1, 0.1, 0.1) * 12.0, // Black portal
+  vec3(0.9, 0.9, 0.9) * 12.0, // White portal
+  vec3(0.3, 0.3, 0.3) * 12.0, // Gray portal
+  vec3(0.7, 0.7, 0.7) * 12.0 // Light gray portal
 );
 
 const vec3[16] tint_color = vec3[16](

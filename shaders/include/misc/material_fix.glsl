@@ -6,7 +6,7 @@
 #if defined PROGRAM_GBUFFERS_ENTITIES || defined PROGRAM_GBUFFERS_HAND
 uint fix_material_mask() {
 #if defined PROGRAM_GBUFFERS_ENTITIES
-	if (entityId != 10100) return material_mask;
+	if (entityId != 10125) return material_mask;
 	bool is_top_face = tbn[2].y > 0.5;
 #else
 	bool is_top_face = (mat3(gbufferModelView) * tbn[2]).y > 0.5;
