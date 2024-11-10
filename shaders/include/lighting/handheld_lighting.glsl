@@ -16,8 +16,8 @@ uniform int heldBlockLightValue2;
 
 vec3 get_handheld_light_color(int held_item_id, int held_item_light_value) {
 #ifdef COLORED_LIGHTS
-  if (10032 <= held_item_id && held_item_id <= 10106) {
-		return texelFetch(light_data_sampler, ivec2(int(held_item_id) - 10032, 0), 0).rgb;
+  if (10026 <= held_item_id && held_item_id <= 10106) {
+		return texelFetch(light_data_sampler, ivec2(int(held_item_id) - 10026, 0), 0).rgb;
   } else {
 		return vec3(0.0);
 	}

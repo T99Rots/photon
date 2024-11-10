@@ -4,16 +4,16 @@
 #include "voxelization.glsl"
 
 bool is_emitter(uint block_id) {
-	return 32u <= block_id && block_id < 106u;
+	return 26u <= block_id && block_id <= 106u;
 }
 
 bool is_translucent(uint block_id) {
-	return 106u <= block_id && block_id < 112u;
+	return 106u <= block_id && block_id <= 122u;
 }
 
 vec3 get_emitted_light(uint block_id) {
 	if (is_emitter(block_id)) {
-		return texelFetch(light_data_sampler, ivec2(int(block_id) - 32, 0), 0).rgb;
+		return texelFetch(light_data_sampler, ivec2(int(block_id) - 26, 0), 0).rgb;
 	} else {
 		return vec3(0.0);
 	}
