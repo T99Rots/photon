@@ -62,10 +62,10 @@ void update_voxel_map(uint block_id) {
 	block_id = max(block_id, 1u);
 
 	// Warped and crimson stem emission
-	uint is_warped_stem  = uint(19 <= block_id && block_id < 23);
-	uint is_crimson_stem = uint(23 <= block_id && block_id < 27);
-	block_id = block_id * (1u - is_warped_stem) + 46 * is_warped_stem;
-	block_id = block_id * (1u - is_crimson_stem) + 58 * is_crimson_stem;
+	uint is_warped_stem  = uint(18 <= block_id && block_id < 22);
+	uint is_crimson_stem = uint(22 <= block_id && block_id < 26);
+	block_id = block_id * (1u - is_warped_stem) + 40 * is_warped_stem;
+	block_id = block_id * (1u - is_crimson_stem) + 52 * is_crimson_stem;
 
 	// SSS blocks
 	if (block_id == 5u  || // Leaves
@@ -76,7 +76,7 @@ void update_voxel_map(uint block_id) {
 	}
 
 	// Mark transparent light sources
-	block_id = (vertex_at_grid_corner)
+	block_id = (vertex_at_grid_corner || (53 <= block_id && block_id <= 58))
 		? block_id
 		: clamp(block_id + 128u, 0u, 255u);
 

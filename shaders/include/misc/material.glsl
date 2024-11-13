@@ -94,6 +94,13 @@ void decode_specular_map(vec4 specular_map, inout Material material, out bool pa
 		decode_specular_map(specular_map, material);
 }
 
+float calculateEmissiveness(vec3 hsl, float targetHue) {
+  float hueDifference = abs(hsl.x - targetHue);
+  hueDifference = min(hueDifference, 1.0 - hueDifference);
+  float emissionIntensity = (1.0 - smoothstep(0.0, 0.3, hueDifference));
+  return emissionIntensity;
+}
+
 Material material_from(vec3 albedo_srgb, uint material_mask, vec3 world_pos, vec3 normal, inout vec2 light_levels) {
 	vec3 block_pos = fract(world_pos);
 
@@ -339,35 +346,7 @@ Material material_from(vec3 albedo_srgb, uint material_mask, vec3 world_pos, vec
       #endif
       break;
     case 22u: // Crimson stem
-      #ifdef HARDCODED_EMISSION
-      {
-        float emission_amount = mix(
-          1.0,
-          float(any(lessThan(
-            vec4(block_pos.yz, 1.0 - block_pos.yz),
-            vec4(rcp(16.0) - 1e-3)
-          ))),
-          step(0.5, abs(normal.x))
-        );
-        material.emission = albedo_sqrt * linear_step(0.33, 0.5, hsl.z) * emission_amount;
-      }
-      #endif
-      break;
     case 23u: // Crimson stem
-      #ifdef HARDCODED_EMISSION
-      {
-        float emission_amount = mix(
-          1.0,
-          float(any(lessThan(
-            vec4(block_pos.xz, 1.0 - block_pos.xz),
-            vec4(rcp(16.0) - 1e-3)
-          ))),
-          step(0.5, abs(normal.y))
-        );
-        material.emission = albedo_sqrt * linear_step(0.33, 0.5, hsl.z) * emission_amount;
-      }
-      #endif
-      break;
     case 24u: // Crimson stem
       #ifdef HARDCODED_EMISSION
       {
@@ -581,7 +560,115 @@ Material material_from(vec3 albedo_srgb, uint material_mask, vec3 world_pos, vec
       }
       #endif
       break;
+    // case 53u: // Redstone block
+    // case 54u: // Redstone block
+    // case 55u: // Redstone block
+    // case 56u: // Redstone block
+    // case 57u: // Redstone block
+    // case 58u: // Redstone block
+    //   #ifdef HARDCODED_EMISSION
+    //   {
+    //     material.emission = 0.60 * albedo_sqrt * (0.1 + 0.9 * cube(hsl.z));
+    //   }
+    //   #endif
+    // break;
+    
+    case 53u: // Magenta plants
+      #ifdef HARDCODED_SSS
+      {
+        material.sss_amount = 0.5;
+        material.sheen_amount = 1.0;
+      }
+      #endif
+      #ifdef HARDCODED_EMISSION
+      {
+        const float targetHue = 291.0 / 360.0;
+        material.emission = vec3(0.40) * calculateEmissiveness(hsl, targetHue);
+      }
+      #endif
+      break;
 
+    case 54u: // Cyan plants
+      #ifdef HARDCODED_SSS
+      {
+        material.sss_amount = 0.5;
+        material.sheen_amount = 1.0;
+      }
+      #endif
+      #ifdef HARDCODED_EMISSION
+      {
+        const float targetHue = 40.0 / 360.0;
+        material.emission = vec3(0.40) * calculateEmissiveness(hsl, targetHue);
+      }
+      #endif
+      break;
+
+    case 55u: // Blue plants
+      #ifdef HARDCODED_SSS
+      {
+        material.sss_amount = 0.5;
+        material.sheen_amount = 1.0;
+      }
+      #endif
+      #ifdef HARDCODED_EMISSION
+      {
+        const float targetHue = 180.0 / 360.0;
+        material.emission = vec3(0.40) * calculateEmissiveness(hsl, targetHue);
+      }
+      #endif
+      break;
+
+    case 56u: // Red orange plants
+      #ifdef HARDCODED_SSS
+      {
+        material.sss_amount = 0.5;
+        material.sheen_amount = 1.0;
+      }
+      #endif
+      #ifdef HARDCODED_EMISSION
+      {
+        const float targetHue = 20.0 / 360.0;
+        material.emission = vec3(0.40) * calculateEmissiveness(hsl, targetHue);
+      }
+      #endif
+      break;
+
+    case 57u: // Purple plants
+      #ifdef HARDCODED_SSS
+      {
+        material.sss_amount = 0.5;
+        material.sheen_amount = 1.0;
+      }
+      #endif
+      #ifdef HARDCODED_EMISSION
+      {
+        const float targetHue = 271.0 / 360.0;
+        material.emission = vec3(0.40) * calculateEmissiveness(hsl, targetHue);
+      }
+      #endif
+      break;
+
+    case 58u: // Unused
+      #ifdef HARDCODED_SSS
+      {
+        material.sss_amount = 0.5;
+        material.sheen_amount = 1.0;
+      }
+      #endif
+      #ifdef HARDCODED_EMISSION
+      {
+        const float targetHue = 40.0 / 360.0;
+        material.emission = vec3(0.40) * calculateEmissiveness(hsl, targetHue);
+      }
+      #endif
+      break;
+
+    case 89u:
+      #ifdef HARDCODED_EMISSION
+      {
+        material.emission = vec3(0.20) * (0.1 + 0.9 * hsl.z);
+      }
+      #endif
 
     /// Portals (End, Nether, Custom).
     case 90u:
