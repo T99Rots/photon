@@ -247,7 +247,7 @@ uniform vec4 entityColor;
 #endif
 
 #ifdef DIRECTIONAL_LIGHTMAPS
-#include "/include/light/directional_lightmaps.glsl"
+#include "/include/lighting/directional_lightmaps.glsl"
 #endif
 
 #include "/include/misc/material_fix.glsl"
@@ -408,8 +408,8 @@ void main() {
 #endif
 
 #if defined PROGRAM_GBUFFERS_ENTITIES
-	if (material_mask == 102) base_color = vec4(1.0);
-	if (base_color.a < 0.1 && material_mask != 101) { discard; return; } // Save transparent quad in boats, which masks out water
+	if (material_mask == 127) base_color = vec4(1.0);
+	if (base_color.a < 0.1 && material_mask != 126) { discard; return; } // Save transparent quad in boats, which masks out water
 #else
 	if (base_color.a < 0.1) { discard; return; }
 #endif

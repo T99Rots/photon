@@ -1,7 +1,7 @@
 #if !defined INCLUDE_FOG_AIR_FOG_VL
 #define INCLUDE_FOG_AIR_FOG_VL
 
-#include "/include/light/distortion.glsl"
+#include "/include/lighting/distortion.glsl"
 #include "/include/sky/atmosphere.glsl"
 #include "/include/utility/encoding.glsl"
 #include "/include/utility/phase_functions.glsl"
@@ -142,8 +142,8 @@ mat2x3 raymarch_air_fog(vec3 world_start_pos, vec3 world_end_pos, bool sky, floa
 
 	if (!sky) {
 		// Skylight falloff
-		light_sky[0] *= skylight;
-		light_sky[1] *= skylight;
+		light_sky[0] *= max(skylight, eye_skylight);
+		light_sky[1] *= max(skylight, eye_skylight);
 	}
 
 	float LoV = dot(world_dir, light_dir);

@@ -1,5 +1,5 @@
-#if !defined INCLUDE_LIGHT_LPV_VOXELIZATION
-#define INCLUDE_LIGHT_LPV_VOXELIZATION
+#if !defined INCLUDE_LIGHTING_LPV_VOXELIZATION
+#define INCLUDE_LIGHTING_LPV_VOXELIZATION
 
 const ivec3 voxel_volume_size = ivec3(VOXEL_VOLUME_SIZE);
 
@@ -23,9 +23,9 @@ bool is_voxelized(uint block_id, bool vertex_at_grid_corner) {
 	bool is_transparent_block =
 		block_id == 1u  || // Water
 	    block_id == 18u || // Transparent metal objects
-	    block_id == 80u;   // Miscellaneous transparent
+	    block_id == 123u;   // Miscellaneous transparent
 	
-	bool is_light_emitting_block = 32u <= block_id && block_id < 64u;
+	bool is_light_emitting_block = 26u <= block_id && block_id <= 106u;
 
 	return (vertex_at_grid_corner || is_light_emitting_block) && is_terrain && !is_transparent_block;
 }
@@ -62,21 +62,21 @@ void update_voxel_map(uint block_id) {
 	block_id = max(block_id, 1u);
 
 	// Warped and crimson stem emission
-	uint is_warped_stem  = uint(19 <= block_id && block_id < 23);
-	uint is_crimson_stem = uint(23 <= block_id && block_id < 27);
-	block_id = block_id * (1u - is_warped_stem) + 46 * is_warped_stem;
-	block_id = block_id * (1u - is_crimson_stem) + 58 * is_crimson_stem;
+	uint is_warped_stem  = uint(18 <= block_id && block_id < 22);
+	uint is_crimson_stem = uint(22 <= block_id && block_id < 26);
+	block_id = block_id * (1u - is_warped_stem) + 40 * is_warped_stem;
+	block_id = block_id * (1u - is_crimson_stem) + 52 * is_crimson_stem;
 
 	// SSS blocks
 	if (block_id == 5u  || // Leaves
 	    block_id == 14u || // Strong SSS
 	    block_id == 15u    // Weak SSS
 	) {
-		block_id = 79; // light gray tint
+		block_id = 122; // light gray tint
 	}
 
 	// Mark transparent light sources
-	block_id = (vertex_at_grid_corner)
+	block_id = (vertex_at_grid_corner || (53 <= block_id && block_id <= 58))
 		? block_id
 		: clamp(block_id + 128u, 0u, 255u);
 
@@ -86,4 +86,4 @@ void update_voxel_map(uint block_id) {
 }
 #endif
 
-#endif // INCLUDE_LIGHT_LPV_VOXELIZATION
+#endif // INCLUDE_LIGHTING_LPV_VOXELIZATION

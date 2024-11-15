@@ -10,7 +10,7 @@ uint get_material_mask() {
 	uint id = uint(max(entityId - 10000, 0));
 #ifdef IS_IRIS
 	uint item_id = uint(max(currentRenderedItemId - 10000, 0));
-	id = id == 100 ? item_id : id;
+	id = id == 125 ? item_id : id;
 #endif
 	return id;
 #elif defined PROGRAM_GBUFFERS_BLOCK || defined PROGRAM_GBUFFERS_BLOCK_TRANSLUCENT

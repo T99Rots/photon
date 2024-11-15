@@ -1,19 +1,19 @@
-#if !defined INCLUDE_LIGHT_LPV_FLOODFILL
-#define INCLUDE_LIGHT_LPV_FLOODFILL
+#if !defined INCLUDE_LIGHTING_LPV_FLOODFILL
+#define INCLUDE_LIGHTING_LPV_FLOODFILL
 
 #include "voxelization.glsl"
 
 bool is_emitter(uint block_id) {
-	return 32u <= block_id && block_id < 64u;
+	return 26u <= block_id && block_id <= 106u;
 }
 
 bool is_translucent(uint block_id) {
-	return 64u <= block_id && block_id < 80u;
+	return 106u <= block_id && block_id <= 122u;
 }
 
 vec3 get_emitted_light(uint block_id) {
 	if (is_emitter(block_id)) {
-		return texelFetch(light_data_sampler, ivec2(int(block_id) - 32, 0), 0).rgb;
+		return texelFetch(light_data_sampler, ivec2(int(block_id) - 26, 0), 0).rgb;
 	} else {
 		return vec3(0.0);
 	}
@@ -21,7 +21,7 @@ vec3 get_emitted_light(uint block_id) {
 
 vec3 get_tint(uint block_id, bool is_transparent) {
 	if (is_translucent(block_id)) {
-		return texelFetch(light_data_sampler, ivec2(int(block_id) - 64, 1), 0).rgb;
+		return texelFetch(light_data_sampler, ivec2(int(block_id) - 106, 1), 0).rgb;
 	} else {
 		return vec3(is_transparent);
 	}
@@ -66,4 +66,4 @@ void update_lpv(writeonly image3D light_img, sampler3D light_sampler) {
 	imageStore(light_img, pos, vec4(light, 0.0));
 }
 
-#endif // INCLUDE_LIGHT_LPV_FLOODFILL
+#endif // INCLUDE_LIGHTING_LPV_FLOODFILL
